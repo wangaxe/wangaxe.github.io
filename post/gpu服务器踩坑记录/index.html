@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Hugo Themes  | GPU服务器踩坑记录</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1">
+	<meta name="generator" content="Hugo 0.73.0" />
+	
+	
+	<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+	
+
+	
+	
+	<link href="/wangaxe/wangaxe.github.io/dist/app.css" rel="stylesheet">
+	
+
+	
+
+	
+	
+<link rel="shortcut icon" href="img/favicon-32x32.png" type="image/png" />
+
+	
+
+	
+	
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-FAKE', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	
+	
+
+
+
+<link rel="stylesheet" href='https://github.com/wangaxe/wangaxe.github.io/lib/katex.min.css' integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src='https://github.com/wangaxe/wangaxe.github.io/lib/katex.min.js' integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+
+<script defer src='https://github.com/wangaxe/wangaxe.github.io/lib/contrib/auto-render.min.js' integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+crossorigin="anonymous"
+onload='renderMathInElement(document.body);'></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	
+	
+</head>
+
+<body class="bg-gray-100 text-gray-700 font-sans">
+	<div class="p-6 sm:p-10 md:p-16 flex flex-wrap">
+		<header class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-1 md:order-1 max-w-2xl">
+			<div
+				class="z-50 bg-gray-100 bg-opacity-75 bg-opacity-custom lg:min-w-0.7 max-w-xl md:float-right md:text-right leading-loose tracking-tight md:sticky md:top-0 pt-2">
+				
+<div>
+	<h2>
+		<a href="https://github.com/wangaxe/wangaxe.github.io" title="Hugo Themes" class="heading font-cursive icon">Hugo Themes</a>
+	</h2>
+</div>
+<h1 class="pt-2">GPU服务器踩坑记录</h1>
+
+<div class="flex flex-wrap justify-end pt-2 "><div class="md:flex-grow-0 font-light">
+	
+
+	
+
+	
+</div><time class="text-eucalyptus-500 md:text-right md:flex-grow font-light pl-4"
+		datetime="2020-05-19T12:51:04&#43;01:00">2020-5-19 12:51</time>
+</div>
+
+<hr />
+
+			</div>
+		</header>
+		<main role="main" class="w-full md:w-3/5 xl:w-1/2 max-w-3xl order-2 md:order-2 min-h-70vh pt-2 pb-4">
+			
+
+<article>
+	<section class="mx-auto content">
+		<div class="c-rich-text"><h2 id="内网映射-frp">内网映射-frp</h2>
+<p>准备材料：1. 有公网IP的服务器； 2. <a href="https://github.com/fatedier/frp/releases">frp</a></p>
+<p>下载并解压 frp 的最新版本 （目前服务器上使用的是 0.22.0 版本）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://github.com/fatedier/frp/releases/frp_0.33.0_linux_amd64.tar.gz
+tar -zxvf frp_0.33.0_linux_amd64.tar.gz
+</code></pre></div><h4 id="服务器端有公网-ip-的中转节点">服务器端（有公网 IP 的中转节点）</h4>
+<p>保留 frps, frps.ini，顾名思义 s结尾代表server</p>
+<p>修改frps.ini</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>common<span style="color:#f92672">]</span>
+bind_port <span style="color:#f92672">=</span> <span style="color:#ae81ff">7000</span>
+dashboard_port <span style="color:#f92672">=</span> <span style="color:#ae81ff">7500</span>
+token <span style="color:#f92672">=</span> &lt;common_token&gt;
+dashboard_user <span style="color:#f92672">=</span> &lt;user_name&gt;
+dashboard_pwd <span style="color:#f92672">=</span> &lt;user_pwd&gt;
+vhost_http_port <span style="color:#f92672">=</span> <span style="color:#ae81ff">10080</span>
+vhost_https_port <span style="color:#f92672">=</span> <span style="color:#ae81ff">10443</span>
+
+<span style="color:#f92672">[</span>ssh<span style="color:#f92672">]</span>
+bind_port <span style="color:#f92672">=</span> &lt;port_id&gt;
+token <span style="color:#f92672">=</span> &lt;service_token&gt; 
+</code></pre></div><ul>
+<li>“bind_port”表示用于客户端和服务端连接的端口，这个端口号我们之后在配置客户端的时候要用到。<strong>注意：</strong> 服务器端要在安全组中开放设置的端口。</li>
+<li>“dashboard_port”是服务端仪表板的端口，若使用7500端口，在配置完成服务启动后可以通过浏览器访问 x.x.x.x:7500 （其中x.x.x.x为VPS的IP）查看frp服务运行信息。</li>
+<li>“token”是用于客户端和服务端连接的口令，请自行设置并记录，稍后会用到。</li>
+<li>“dashboard_user”和“dashboard_pwd”表示打开仪表板页面登录的用户名和密码，自行设置即可。</li>
+<li>“vhost_http_port”和“vhost_https_port”用于反向代理HTTP主机时使用，本文不涉及HTTP协议，因而照抄或者删除这两条均可.</li>
+</ul>
+<p>后台运行 <code>nohup ./frps -c frps.ini &amp;</code>，此时可先使用Ctrl+C关闭nohup，frps 依然会在后台运行，使用jobs命令查看后台运行的程序</p>
+<h4 id="客户端gpu服务器">客户端（GPU服务器）</h4>
+<p>目前客户端使用的操作系统是 Ubuntu 18，下载和解压的步骤同服务器端。</p>
+<p>客户端要用的文件是 frpc, frpc.ini，编辑 frpc.ini</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>common<span style="color:#f92672">]</span>
+server_addr <span style="color:#f92672">=</span> xxx.xxx.xxx.xxx
+server_port <span style="color:#f92672">=</span> <span style="color:#ae81ff">7000</span>
+token <span style="color:#f92672">=</span> &lt;common_token&gt;
+
+<span style="color:#f92672">[</span>ssh<span style="color:#f92672">]</span>
+type <span style="color:#f92672">=</span> tcp
+local_ip <span style="color:#f92672">=</span> 127.0.0.1
+local_port <span style="color:#f92672">=</span> &lt;local_ssh_port&gt;
+remote_port <span style="color:#f92672">=</span> &lt;port_id&gt;
+token <span style="color:#f92672">=</span> &lt;service_token&gt;
+</code></pre></div><p>其中common字段下的三项即为服务端的设置。</p>
+<ul>
+<li>“server_addr”为服务端IP地址，填入即可。</li>
+<li>“server_port”为服务器端口，填入你设置的端口号即可，如果未改变就是7000</li>
+<li>“token”是你在服务器上设置的连接口令，原样填入即可</li>
+</ul>
+<p>自定义的规则：</p>
+<ul>
+<li>“[xxx]”表示一个规则名称，自己定义，便于查询即可。</li>
+<li>“type”表示转发的协议类型，有TCP和UDP等选项可以选择，如有需要请自行查询frp手册。</li>
+<li>“local_port”是本地应用的端口号，按照实际应用工作在本机的端口号填写即可，ubuntu 系统的ssh端口在 <code>/etc/ssh/sshd_config</code> ，开启新端口添加 <code>Port xxx</code>，注意修改 <code>PasswordAuthentication yes</code></li>
+<li>“remote_port”是该条规则在服务端开放的端口号，自己填写并记录即可。</li>
+</ul>
+<p>后台运行 <code>nohup ./frpc -c frpc.ini &amp;</code> ，<strong>注意是frpc</strong></p>
+<p><strong>关于指定端口：</strong> 尽量避开已经注册或者可能有其他用途的端口，端口的信息在 <a href="https://tool.oschina.net/commons?type=7#unreg_">这里</a> 。</p>
+<h2 id="nvidia-drive">Nvidia drive</h2>
+<ol>
+<li>添加N卡驱动的源</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+</code></pre></div><ol start="2">
+<li>检查可以安装的驱动版本</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ubuntu-drivers devices
+</code></pre></div><ol start="3">
+<li>选择相应的版本安装</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install nvidia-driver-XXX
+</code></pre></div><p>安装完成后需要重启系统，输入 <code>nvidia-smi</code> 查看驱动信息。</p>
+<p>目前使用的是440版本，使用 conda 下载 pytorch 或者 tensorflow 时会下载相应的 cudatoolkit。如果以后需要手动安装 CUDA 和 cuDNN，可以参考 <a href="https://zhuanlan.zhihu.com/p/72298520">这里</a>。</p>
+<h2 id="硬盘">硬盘</h2>
+<h4 id="机械硬盘">机械硬盘</h4>
+<p>现在服务器上配备的是一块 8t 的机械硬盘。首先对硬盘分区一般使用 fdisk 工具，但是该工具只能处理最大 2t 的硬盘空间。所以使用 <a href="https://blog.51cto.com/zhangmingqian/1068779">parted</a> 工具进行操作。另外这部分的操作都需要 sudo 权限，直接使用 root 账号进行操作比较方便。</p>
+<ol>
+<li>定位硬盘</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@turtle:~# ls /dev/sd*
+<span style="color:#75715e"># example output: /dev/sda  /dev/sda1  /dev/sda2  /dev/sda5  /dev/sdb</span>
+</code></pre></div><p>最后一位没有数字的就是要操作的硬盘。</p>
+<ol start="2">
+<li>分区，以 <code>/dev/sdb</code>为例</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@turtle:~# parted /dev/sdb
+GNU Parted 2.3
+Using /dev/sdb
+Welcome to GNU Parted! Type <span style="color:#e6db74">&#39;help&#39;</span> to view a list of commands.
+<span style="color:#f92672">(</span>parted<span style="color:#f92672">)</span> print
+Error: /dev/sdb: unrecognised disk label
+<span style="color:#f92672">(</span>parted<span style="color:#f92672">)</span> mklabel gpt 
+<span style="color:#f92672">(</span>parted<span style="color:#f92672">)</span> mkpart
+Partition name?  <span style="color:#f92672">[]</span>?
+File system type?  <span style="color:#f92672">[</span>ext2<span style="color:#f92672">]</span>? ext4 %<span style="color:#f92672">(</span>ext3/4?<span style="color:#f92672">)</span>
+Start? 0%
+End? 100%
+<span style="color:#f92672">(</span>parted<span style="color:#f92672">)</span> print
+Model: ATA ST3000DM001-1CH1 <span style="color:#f92672">(</span>scsi<span style="color:#f92672">)</span>
+Disk /dev/sdb: 3001GB
+Sector size <span style="color:#f92672">(</span>logical/physical<span style="color:#f92672">)</span>: 512B/4096B
+Partition Table: gpt
+
+Number  Start   End     Size    File system  Name  Flags
+ <span style="color:#ae81ff">1</span>      1049kB  3001GB  3001GB
+
+<span style="color:#f92672">(</span>parted<span style="color:#f92672">)</span> quit
+Information: You may need to update /etc/fstab.
+</code></pre></div><p>这里注意第 7 行 和第 10 行。第 7 行的 label 为 gpt, 应该不能自己随意修改。第 10 行要指定文件系统的类型，首先 <a href="https://zh.wikipedia.org/wiki/Ext4">ext4 是新的类型</a>，理论上性能更好，其次目前服务器固态硬盘使用的也是 ext4，我觉得保持一致是比较合理的。所以目前使用的是 ext4 类型。这里的做法是将硬盘整个作为一个分区，硬盘内部不分区。</p>
+<ol start="3">
+<li>确认分区成功</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@turtle:~# ls /dev/sd*
+<span style="color:#75715e"># example output:/dev/sda  /dev/sda1  /dev/sda2  /dev/sda5  /dev/sdb  /dev/sdb1</span>
+</code></pre></div><p>这里 <code>/dev/sdb1</code> 就是刚才操作的结果。</p>
+<ol start="4">
+<li>制作文件系统以及挂载硬盘</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@turtle:~# mkfs.ext4 /dev/sdb1
+root@turtle:~# mount /dev/sdb1  /mnt/sdb1/
+</code></pre></div><p>以上是对硬盘进行分区并挂载的过程，所以输出只是示例。目前服务器端的硬盘挂载在 <code>/mnt/storage0_8</code> 目录下。还需要注意的是 <code>mount</code>命令重启后就失效。所以还要将挂载信息写入到 <code>/etc/fstab</code>中，具体做法是在该文件末尾新加一行: <em>(具体效果有待确认)</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/dev/sdb1 /mnt/sdb1 ext4 default <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>设置开机自动挂载的第二种 <a href="https://blog.lpxin.com/2019/05/16/Linux%E4%BD%BF%E7%94%A8parted%E6%8C%82%E8%BD%BD%E5%A4%A7%E4%BA%8E2T%E7%A3%81%E7%9B%98/">姿势</a>。</p>
+<p>最后总结下常用命令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fdisk       磁盘分区相关操作  |fdisk -l 查看磁盘的挂载信息
+df          系统分区挂载信息  |df -lh 查看当前磁盘的使用信息
+mount       挂载分区         
+umount      卸载分区        
+mkfs.ext4   格式化分区   
+chmod <span style="color:#ae81ff">777</span> /mnt/sdb1 给硬盘添加访问权限
+</code></pre></div><h4 id="固态硬盘">固态硬盘</h4>
+<p>目前服务器上配备的是一块 2t 的固态硬盘，每个用户的根目录都在固态硬盘中，正常使用即可。这里主要是记录一个以后使用可能会遇到的坑 &ndash; 储存空间被全部占满。我遇到情况是磁盘被体积巨大的 log 文件占满。解决方案：（<a href="https://itlearner.me/p/58700/">参考</a>）</p>
+<p>查找 大于800M 的文件，手动删除</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd /
+$ find . -type f -size +800M  -print0 | xargs -0 du -h
+5.6G ./var/log/syslog.1
+6.7G ./var/log/syslog
+...
+$ rm ...
+</code></pre></div><p>主要删除各类 log 文件即可。如果删除文件后，磁盘空间没有释放，则需要手动 kill 掉 rm 命令相关的进程</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo lsof -n |grep deleted
+java      <span style="color:#ae81ff">17866</span>                  root  237r      REG              253,1    <span style="color:#ae81ff">163541</span>    <span style="color:#ae81ff">1709285</span> /tmp/tomcat.8250394289784312179.8080/work/Tomcat/localhost/ROOT/upload_c6db0c17_6e6a_4141_bfb6_ac1b2d8a3b0b_00000000.tmp <span style="color:#f92672">(</span>deleted<span style="color:#f92672">)</span>
+...
+$ sudo kill -9 <span style="color:#ae81ff">17866</span>
+</code></pre></div><h2 id="conda">conda</h2>
+<h2 id="开机自启动-待填"><del><em>开机自启动</em></del> &lt;待填&gt;</h2>
+<h2 id="配置清单">配置清单</h2>
+<ul>
+<li>Ubit AX WiFi 6 Dual Band 2974 Mbps AX200 PCIE Wireless WiFi Card with Bluetooth 5.0 | MU-MIMO| OFDMA| Ultra-Low Latency</li>
+<li>Corsair CW-9060033-WW H100i Hydro PRO RGB Liquid CPU Cooler - Black</li>
+<li>ASUS WS X299 SAGE LGA2066 DDR4 M.2 U.2 X299 CEB Motherboard for Intel Core X-Series Processors with Quad-GPU Support, DDR4 4200MHz, Dual M.2 &amp; U.2 Support</li>
+<li>Intel BX80673I99820X Processor i9-9820X LGA2066 3.3 GHz/16.5 M.  Ebuyer UK Limited</li>
+<li>Corsair CC-9011030-WW Carbide Series Air 540 ATX High Airflow Cube Performance Windowed Computer Case - Black</li>
+<li>Corsair CMK128GX4M8A2666C16 Vengeance LPX 128 GB (8 x 16 GB) DDR4 2666 MHz C16 XMP 2.0 High Performance Desktop Memory Kit with Airflow Fan, Black</li>
+<li>Corsair AX1600i Digital 80 PLUS TITANIUM Full Modular ATX Power Supply Unit - Black</li>
+<li>Samsung 970 EVO Plus 2 TB PCIe NVMe M.2 (2280) Internal Solid State Drive (SSD) (MZ-V7S2T0)</li>
+<li>Seagate 8 TB BarraCuda Pro 3.5 Inch Internal Hard Drive + 2 year Rescue Data Recovery (7200 RPM, 256 MB Cache, SATA 6 Gb/s, Up to 220 MB/s, Model: ST8000DMZ004/DM0004)</li>
+<li>Gigabyte GeForce RTX 2080 Ti TURBO 11G * 4</li>
+</ul>
+</div>
+	</section>
+
+
+</article>
+
+		</main>
+		<aside role="contentinfo"
+			class="w-full md:w-2/5 xl:w-1/2 md:pr-12 lg:pr-20 xl:pr-24 order-4 md:order-3 md:sticky md:bottom-0 self-end max-w-2xl">
+			<div class="md:float-right md:text-right leading-loose tracking-tight md:mb-2">
+				
+	<div class="md:max-w-xs  flex flex-col md:items-end">
+	<ul class="font-serif flex-grow-0 flex justify-between flex-wrap md:flex-col">
+	
+	
+	<li class="px-1 md:px-0">
+		<a href="/wangaxe/wangaxe.github.io/post/" title="Posts page" 
+			class="font-medium text-medium-red-violet-600 hover:text-medium-red-violet-400" >
+			Posts
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/wangaxe/wangaxe.github.io/categories/" title="Categories page" >
+			Categories
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/wangaxe/wangaxe.github.io/tags/" title="Tags page" >
+			Tags
+		</a>
+	</li>
+	
+	<li class="px-1 md:px-0">
+		<a href="/wangaxe/wangaxe.github.io/about/" title="About page" >
+			About
+		</a>
+	</li>
+	
+	
+	
+</ul>
+	
+
+<div class="flex flex-wrap-reverse md:justify-end content-end md:content-start justify-start items-start md:flex-col pb-2 max-h-16">
+	
+	<a href='http://example.com/' target="_blank" class="bilibili icon pl-1 text-eucalyptus-400 hover:text-java-400" title="bilibili link" rel="noopener"
+		aria-label="follow on bilibili——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M7.172 2.757L10.414 6h3.171l3.243-3.242a1 1 0 0 1 1.415 1.415l-1.829 1.827L18.5 6A3.5 3.5 0 0 1 22 9.5v8a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 17.5v-8A3.5 3.5 0 0 1 5.5 6h2.085L5.757 4.171a1 1 0 0 1 1.415-1.415zM18.5 8h-13a1.5 1.5 0 0 0-1.493 1.356L4 9.5v8a1.5 1.5 0 0 0 1.356 1.493L5.5 19h13a1.5 1.5 0 0 0 1.493-1.356L20 17.5v-8A1.5 1.5 0 0 0 18.5 8zM8 11a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm8 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://github.com/' target="_blank" class="github icon pl-1 text-eucalyptus-400 hover:text-java-400" title="github link" rel="noopener"
+		aria-label="follow on github——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.883 18.653c-.3-.2-.558-.455-.86-.816a50.32 50.32 0 0 1-.466-.579c-.463-.575-.755-.84-1.057-.949a1 1 0 0 1 .676-1.883c.752.27 1.261.735 1.947 1.588-.094-.117.34.427.433.539.19.227.33.365.44.438.204.137.587.196 1.15.14.023-.382.094-.753.202-1.095C5.38 15.31 3.7 13.396 3.7 9.64c0-1.24.37-2.356 1.058-3.292-.218-.894-.185-1.975.302-3.192a1 1 0 0 1 .63-.582c.081-.024.127-.035.208-.047.803-.123 1.937.17 3.415 1.096A11.731 11.731 0 0 1 12 3.315c.912 0 1.818.104 2.684.308 1.477-.933 2.613-1.226 3.422-1.096.085.013.157.03.218.05a1 1 0 0 1 .616.58c.487 1.216.52 2.297.302 3.19.691.936 1.058 2.045 1.058 3.293 0 3.757-1.674 5.665-4.642 6.392.125.415.19.879.19 1.38a300.492 300.492 0 0 1-.012 2.716 1 1 0 0 1-.019 1.958c-1.139.228-1.983-.532-1.983-1.525l.002-.446.005-.705c.005-.708.007-1.338.007-1.998 0-.697-.183-1.152-.425-1.36-.661-.57-.326-1.655.54-1.752 2.967-.333 4.337-1.482 4.337-4.66 0-.955-.312-1.744-.913-2.404a1 1 0 0 1-.19-1.045c.166-.414.237-.957.096-1.614l-.01.003c-.491.139-1.11.44-1.858.949a1 1 0 0 1-.833.135A9.626 9.626 0 0 0 12 5.315c-.89 0-1.772.119-2.592.35a1 1 0 0 1-.83-.134c-.752-.507-1.374-.807-1.868-.947-.144.653-.073 1.194.092 1.607a1 1 0 0 1-.189 1.045C6.016 7.89 5.7 8.694 5.7 9.64c0 3.172 1.371 4.328 4.322 4.66.865.097 1.201 1.177.544 1.748-.192.168-.429.732-.429 1.364v3.15c0 .986-.835 1.725-1.96 1.528a1 1 0 0 1-.04-1.962v-.99c-.91.061-1.662-.088-2.254-.485z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://gitlab.com/' target="_blank" class="gitlab icon pl-1 text-eucalyptus-400 hover:text-java-400" title="gitlab link" rel="noopener"
+		aria-label="follow on gitlab——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M5.68 7.314l-1.82 5.914L12 19.442l8.14-6.214-1.82-5.914L16.643 11H7.356L5.681 7.314zM15.357 9l2.888-6.354a.4.4 0 0 1 .747.048l3.367 10.945a.5.5 0 0 1-.174.544L12 21.958 1.816 14.183a.5.5 0 0 1-.174-.544L5.009 2.694a.4.4 0 0 1 .747-.048L8.644 9h6.712z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://example.com/' target="_blank" class="instagram icon pl-1 text-eucalyptus-400 hover:text-java-400" title="instagram link" rel="noopener"
+		aria-label="follow on instagram——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0-2a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.25a1.25 1.25 0 0 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM12 4c-2.474 0-2.878.007-4.029.058-.784.037-1.31.142-1.798.332-.434.168-.747.369-1.08.703a2.89 2.89 0 0 0-.704 1.08c-.19.49-.295 1.015-.331 1.798C4.006 9.075 4 9.461 4 12c0 2.474.007 2.878.058 4.029.037.783.142 1.31.331 1.797.17.435.37.748.702 1.08.337.336.65.537 1.08.703.494.191 1.02.297 1.8.333C9.075 19.994 9.461 20 12 20c2.474 0 2.878-.007 4.029-.058.782-.037 1.309-.142 1.797-.331.433-.169.748-.37 1.08-.702.337-.337.538-.65.704-1.08.19-.493.296-1.02.332-1.8.052-1.104.058-1.49.058-4.029 0-2.474-.007-2.878-.058-4.029-.037-.782-.142-1.31-.332-1.798a2.911 2.911 0 0 0-.703-1.08 2.884 2.884 0 0 0-1.08-.704c-.49-.19-1.016-.295-1.798-.331C14.925 4.006 14.539 4 12 4zm0-2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='mailto:anon@example.com' target="_blank" class="mail icon pl-1 text-eucalyptus-400 hover:text-java-400" title="mail link" rel="noopener"
+		aria-label="follow on mail——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/>
+    </g>
+</svg>
+		</div>
+	</a>
+	
+	<a href='http://twitter.com/' target="_blank" class="twitter icon pl-1 text-eucalyptus-400 hover:text-java-400" title="twitter link" rel="noopener"
+		aria-label="follow on twitter——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M15.3 5.55a2.9 2.9 0 0 0-2.9 2.847l-.028 1.575a.6.6 0 0 1-.68.583l-1.561-.212c-2.054-.28-4.022-1.226-5.91-2.799-.598 3.31.57 5.603 3.383 7.372l1.747 1.098a.6.6 0 0 1 .034.993L7.793 18.17c.947.059 1.846.017 2.592-.131 4.718-.942 7.855-4.492 7.855-10.348 0-.478-1.012-2.141-2.94-2.141zm-4.9 2.81a4.9 4.9 0 0 1 8.385-3.355c.711-.005 1.316.175 2.669-.645-.335 1.64-.5 2.352-1.214 3.331 0 7.642-4.697 11.358-9.463 12.309-3.268.652-8.02-.419-9.382-1.841.694-.054 3.514-.357 5.144-1.55C5.16 15.7-.329 12.47 3.278 3.786c1.693 1.977 3.41 3.323 5.15 4.037 1.158.475 1.442.465 1.973.538z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://example.com/' target="_blank" class="weibo icon pl-1 text-eucalyptus-400 hover:text-java-400" title="weibo link" rel="noopener"
+		aria-label="follow on weibo——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M20.194 14.197c0 3.362-4.53 6.424-9.926 6.424C5.318 20.62 1 18.189 1 14.534c0-1.947 1.18-4.087 3.24-6.088 2.832-2.746 6.229-4.033 7.858-2.448.498.482.723 1.122.719 1.858 1.975-.576 3.65-.404 4.483.752.449.623.532 1.38.326 2.207 1.511.61 2.568 1.77 2.568 3.382zm-4.44-2.07c-.386-.41-.4-.92-.198-1.41.208-.508.213-.812.12-.94-.264-.368-1.533-.363-3.194.311a2.043 2.043 0 0 1-.509.14c-.344.046-.671.001-.983-.265-.419-.359-.474-.855-.322-1.316.215-.67.18-1.076.037-1.215-.186-.18-.777-.191-1.659.143-1.069.405-2.298 1.224-3.414 2.306C3.925 11.54 3 13.218 3 14.534c0 2.242 3.276 4.087 7.268 4.087 4.42 0 7.926-2.37 7.926-4.424 0-.738-.637-1.339-1.673-1.652-.394-.113-.536-.171-.767-.417zm7.054-1.617a1 1 0 0 1-1.936-.502 4 4 0 0 0-4.693-4.924 1 1 0 1 1-.407-1.958 6 6 0 0 1 7.036 7.384z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://youtube.com/' target="_blank" class="youtube icon pl-1 text-eucalyptus-400 hover:text-java-400" title="youtube link" rel="noopener"
+		aria-label="follow on youtube——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path fill-rule="nonzero" d="M19.606 6.995c-.076-.298-.292-.523-.539-.592C18.63 6.28 16.5 6 12 6s-6.628.28-7.069.403c-.244.068-.46.293-.537.592C4.285 7.419 4 9.196 4 12s.285 4.58.394 5.006c.076.297.292.522.538.59C5.372 17.72 7.5 18 12 18s6.629-.28 7.069-.403c.244-.068.46-.293.537-.592C19.715 16.581 20 14.8 20 12s-.285-4.58-.394-5.005zm1.937-.497C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5v-7l6 3.5-6 3.5z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+	<a href='http://example.com/' target="_blank" class="zhihu icon pl-1 text-eucalyptus-400 hover:text-java-400" title="zhihu link" rel="noopener"
+		aria-label="follow on zhihu——Opens in a new window">
+		
+		<div class="fill-current h-8 w-8">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g>
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M12.344 17.963l-1.688 1.074-2.131-3.35c-.44 1.402-1.172 2.665-2.139 3.825-.402.483-.82.918-1.301 1.375-.155.147-.775.717-.878.82l-1.414-1.414c.139-.139.787-.735.915-.856.43-.408.795-.79 1.142-1.206 1.266-1.518 2.03-3.21 2.137-5.231H3v-2h4V7h-.868c-.689 1.266-1.558 2.222-2.618 2.857L2.486 8.143c1.395-.838 2.425-2.604 3.038-5.36l1.952.434c-.14.633-.303 1.227-.489 1.783H11.5v2H9v4h2.5v2H9.185l3.159 4.963zm3.838-.07L17.298 17H19V7h-4v10h.736l.446.893zM13 5h8v14h-3l-2.5 2-1-2H13V5z"/>
+    </g>
+</svg>
+
+		</div>
+	</a>
+	
+</div>
+	<div class="text-sm text-gray-500 leading-tight a-gray">
+		Copyright © 2008–2019
+		<br />
+		Built with Hugo and theme <a href="https://github.com/heyeshuang/hugo-theme-tokiwa">Tokiwa</a>. 2165 words in this page.
+	</div>
+</div>
+
+			</div>
+		</aside>
+		<footer class="w-full md:w-3/5 xl:w-1/2 order-3 max-w-3xl md:order-4 pt-2">
+			
+<hr class="double-line" />
+<div class="flex flex-wrap justify-between pb-2 leading-loose font-serif">
+    
+    
+    <a class="flex-grow-0" href="/wangaxe/wangaxe.github.io/post/how-to-build-a-personal-blog-with-hugo/">
+        How to Build a Personal Blog With Hugo
+        <svg class="fill-current inline-block h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+            height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" /></svg></a>
+    
+</div>
+<div >
+
+
+
+</div>
+<hr />
+<div class="pb-2">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "YOURSHORTNAME" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<hr />
+
+		</footer>
+		
+
+<script src="/wangaxe/wangaxe.github.io/dist/app.js"></script>
+
+	</div>
+</body>
+
+</html>

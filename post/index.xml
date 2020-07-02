@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Hugo Themes</title>
+    <link>https://github.com/wangaxe/wangaxe.github.io/post/</link>
+    <description>Recent content in Posts on Hugo Themes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2008–2019</copyright>
+    <lastBuildDate>Fri, 03 Jul 2020 00:05:36 +0100</lastBuildDate>
+    
+	<atom:link href="https://github.com/wangaxe/wangaxe.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MobileNet</title>
+      <link>https://github.com/wangaxe/wangaxe.github.io/post/mobilenet/</link>
+      <pubDate>Fri, 03 Jul 2020 00:05:36 +0100</pubDate>
+      
+      <guid>https://github.com/wangaxe/wangaxe.github.io/post/mobilenet/</guid>
+      <description>
+
+&lt;!-- KaTeX --&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css&#34; integrity=&#34;sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ&#34; crossorigin=&#34;anonymous&#34;&gt;
+&lt;script defer src=&#34;https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js&#34; integrity=&#34;sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij&#34; crossorigin=&#34;anonymous&#34;&gt;&lt;/script&gt;
+&lt;script defer src=&#34;https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js&#34; integrity=&#34;sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI&#34; crossorigin=&#34;anonymous&#34; onload=&#34;renderMathInElement(document.body);&#34;&gt;&lt;/script&gt;
+
+
+</description>
+    </item>
+    
+    <item>
+      <title>How to Build a Personal Blog With Hugo</title>
+      <link>https://github.com/wangaxe/wangaxe.github.io/post/how-to-build-a-personal-blog-with-hugo/</link>
+      <pubDate>Thu, 02 Jul 2020 22:51:04 +0100</pubDate>
+      
+      <guid>https://github.com/wangaxe/wangaxe.github.io/post/how-to-build-a-personal-blog-with-hugo/</guid>
+      <description>&lt;h2 id=&#34;记录搭博客的全过程-坑&#34;&gt;记录搭博客的全过程 (坑)&lt;/h2&gt;
+&lt;h3 id=&#34;install&#34;&gt;Install&lt;/h3&gt;
+&lt;h6 id=&#34;windows&#34;&gt;Windows&lt;/h6&gt;
+&lt;p&gt;按照 &lt;a href=&#34;https://gohugo.io/getting-started/installing&#34;&gt;hugo&lt;/a&gt; 官网的指南，使用 &lt;a href=&#34;https://scoop.sh/&#34;&gt;Scoop&lt;/a&gt; 安装。体验相当不错，几乎和 linux 平台 感觉差不多。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 安装 Scoop&lt;/span&gt;
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://get.scoop.sh&amp;#39;&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# 使用 Scoop 安装 hugo&lt;/span&gt;
+scoop install hugo-extended
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;init&#34;&gt;Init&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;初始化博客&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;hugo new site &amp;lt;path&amp;gt;
+cd &amp;lt;path&amp;gt;
+ls &lt;span style=&#34;color:#75715e&#34;&gt;# 是的，powershell可以用 ls :b&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安装主题&lt;/p&gt;
+&lt;p&gt;在 &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;themes&lt;/a&gt; 里选一个喜欢的就好&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;git submodule add https&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;:&lt;/span&gt;//github.com/heyeshuang/hugo-theme-tokiwa.git themes/hugo-theme-tokiwa themes/&amp;lt;theme-path&amp;gt;
+  
+vim config.toml
+&lt;span style=&#34;color:#75715e&#34;&gt;# 在 config.toml 文件中指定 theme&lt;/span&gt;
+theme = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;lt;theme-path&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;本地浏览&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;hugo server -t &amp;lt;theme-path&amp;gt; --buildDrafts
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GPU服务器踩坑记录</title>
+      <link>https://github.com/wangaxe/wangaxe.github.io/post/gpu%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 19 May 2020 12:51:04 +0100</pubDate>
+      
+      <guid>https://github.com/wangaxe/wangaxe.github.io/post/gpu%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</guid>
+      <description>&lt;h2 id=&#34;内网映射-frp&#34;&gt;内网映射-frp&lt;/h2&gt;
+&lt;p&gt;准备材料：1. 有公网IP的服务器； 2. &lt;a href=&#34;https://github.com/fatedier/frp/releases&#34;&gt;frp&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载并解压 frp 的最新版本 （目前服务器上使用的是 0.22.0 版本）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;wget https://github.com/fatedier/frp/releases/frp_0.33.0_linux_amd64.tar.gz
+tar -zxvf frp_0.33.0_linux_amd64.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;服务器端有公网-ip-的中转节点&#34;&gt;服务器端（有公网 IP 的中转节点）&lt;/h4&gt;
+&lt;p&gt;保留 frps, frps.ini，顾名思义 s结尾代表server&lt;/p&gt;
+&lt;p&gt;修改frps.ini&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;common&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+bind_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7000&lt;/span&gt;
+dashboard_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7500&lt;/span&gt;
+token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;common_token&amp;gt;
+dashboard_user &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;user_name&amp;gt;
+dashboard_pwd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;user_pwd&amp;gt;
+vhost_http_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10080&lt;/span&gt;
+vhost_https_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10443&lt;/span&gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;ssh&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+bind_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;port_id&amp;gt;
+token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;service_token&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;“bind_port”表示用于客户端和服务端连接的端口，这个端口号我们之后在配置客户端的时候要用到。&lt;strong&gt;注意：&lt;/strong&gt; 服务器端要在安全组中开放设置的端口。&lt;/li&gt;
+&lt;li&gt;“dashboard_port”是服务端仪表板的端口，若使用7500端口，在配置完成服务启动后可以通过浏览器访问 x.x.x.x:7500 （其中x.x.x.x为VPS的IP）查看frp服务运行信息。&lt;/li&gt;
+&lt;li&gt;“token”是用于客户端和服务端连接的口令，请自行设置并记录，稍后会用到。&lt;/li&gt;
+&lt;li&gt;“dashboard_user”和“dashboard_pwd”表示打开仪表板页面登录的用户名和密码，自行设置即可。&lt;/li&gt;
+&lt;li&gt;“vhost_http_port”和“vhost_https_port”用于反向代理HTTP主机时使用，本文不涉及HTTP协议，因而照抄或者删除这两条均可.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后台运行 &lt;code&gt;nohup ./frps -c frps.ini &amp;amp;&lt;/code&gt;，此时可先使用Ctrl+C关闭nohup，frps 依然会在后台运行，使用jobs命令查看后台运行的程序&lt;/p&gt;
+&lt;h4 id=&#34;客户端gpu服务器&#34;&gt;客户端（GPU服务器）&lt;/h4&gt;
+&lt;p&gt;目前客户端使用的操作系统是 Ubuntu 18，下载和解压的步骤同服务器端。&lt;/p&gt;
+&lt;p&gt;客户端要用的文件是 frpc, frpc.ini，编辑 frpc.ini&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;common&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+server_addr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; xxx.xxx.xxx.xxx
+server_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7000&lt;/span&gt;
+token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;common_token&amp;gt;
+
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;ssh&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+type &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; tcp
+local_ip &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 127.0.0.1
+local_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;local_ssh_port&amp;gt;
+remote_port &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;port_id&amp;gt;
+token &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;lt;service_token&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其中common字段下的三项即为服务端的设置。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“server_addr”为服务端IP地址，填入即可。&lt;/li&gt;
+&lt;li&gt;“server_port”为服务器端口，填入你设置的端口号即可，如果未改变就是7000&lt;/li&gt;
+&lt;li&gt;“token”是你在服务器上设置的连接口令，原样填入即可&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自定义的规则：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“[xxx]”表示一个规则名称，自己定义，便于查询即可。&lt;/li&gt;
+&lt;li&gt;“type”表示转发的协议类型，有TCP和UDP等选项可以选择，如有需要请自行查询frp手册。&lt;/li&gt;
+&lt;li&gt;“local_port”是本地应用的端口号，按照实际应用工作在本机的端口号填写即可，ubuntu 系统的ssh端口在 &lt;code&gt;/etc/ssh/sshd_config&lt;/code&gt; ，开启新端口添加 &lt;code&gt;Port xxx&lt;/code&gt;，注意修改 &lt;code&gt;PasswordAuthentication yes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;“remote_port”是该条规则在服务端开放的端口号，自己填写并记录即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后台运行 &lt;code&gt;nohup ./frpc -c frpc.ini &amp;amp;&lt;/code&gt; ，&lt;strong&gt;注意是frpc&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关于指定端口：&lt;/strong&gt; 尽量避开已经注册或者可能有其他用途的端口，端口的信息在 &lt;a href=&#34;https://tool.oschina.net/commons?type=7#unreg_&#34;&gt;这里&lt;/a&gt; 。&lt;/p&gt;
+&lt;h2 id=&#34;nvidia-drive&#34;&gt;Nvidia drive&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;添加N卡驱动的源&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;检查可以安装的驱动版本&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;ubuntu-drivers devices
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;选择相应的版本安装&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt install nvidia-driver-XXX
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装完成后需要重启系统，输入 &lt;code&gt;nvidia-smi&lt;/code&gt; 查看驱动信息。&lt;/p&gt;
+&lt;p&gt;目前使用的是440版本，使用 conda 下载 pytorch 或者 tensorflow 时会下载相应的 cudatoolkit。如果以后需要手动安装 CUDA 和 cuDNN，可以参考 &lt;a href=&#34;https://zhuanlan.zhihu.com/p/72298520&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;硬盘&#34;&gt;硬盘&lt;/h2&gt;
+&lt;h4 id=&#34;机械硬盘&#34;&gt;机械硬盘&lt;/h4&gt;
+&lt;p&gt;现在服务器上配备的是一块 8t 的机械硬盘。首先对硬盘分区一般使用 fdisk 工具，但是该工具只能处理最大 2t 的硬盘空间。所以使用 &lt;a href=&#34;https://blog.51cto.com/zhangmingqian/1068779&#34;&gt;parted&lt;/a&gt; 工具进行操作。另外这部分的操作都需要 sudo 权限，直接使用 root 账号进行操作比较方便。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;定位硬盘&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@turtle:~# ls /dev/sd*
+&lt;span style=&#34;color:#75715e&#34;&gt;# example output: /dev/sda  /dev/sda1  /dev/sda2  /dev/sda5  /dev/sdb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后一位没有数字的就是要操作的硬盘。&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;分区，以 &lt;code&gt;/dev/sdb&lt;/code&gt;为例&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@turtle:~# parted /dev/sdb
+GNU Parted 2.3
+Using /dev/sdb
+Welcome to GNU Parted! Type &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;help&amp;#39;&lt;/span&gt; to view a list of commands.
+&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;parted&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; print
+Error: /dev/sdb: unrecognised disk label
+&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;parted&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; mklabel gpt 
+&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;parted&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; mkpart
+Partition name?  &lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt;?
+File system type?  &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;ext2&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;? ext4 %&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;ext3/4?&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+Start? 0%
+End? 100%
+&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;parted&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; print
+Model: ATA ST3000DM001-1CH1 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;scsi&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+Disk /dev/sdb: 3001GB
+Sector size &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;logical/physical&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;: 512B/4096B
+Partition Table: gpt
+
+Number  Start   End     Size    File system  Name  Flags
+ &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;      1049kB  3001GB  3001GB
+
+&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;parted&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; quit
+Information: You may need to update /etc/fstab.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里注意第 7 行 和第 10 行。第 7 行的 label 为 gpt, 应该不能自己随意修改。第 10 行要指定文件系统的类型，首先 &lt;a href=&#34;https://zh.wikipedia.org/wiki/Ext4&#34;&gt;ext4 是新的类型&lt;/a&gt;，理论上性能更好，其次目前服务器固态硬盘使用的也是 ext4，我觉得保持一致是比较合理的。所以目前使用的是 ext4 类型。这里的做法是将硬盘整个作为一个分区，硬盘内部不分区。&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;确认分区成功&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@turtle:~# ls /dev/sd*
+&lt;span style=&#34;color:#75715e&#34;&gt;# example output:/dev/sda  /dev/sda1  /dev/sda2  /dev/sda5  /dev/sdb  /dev/sdb1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里 &lt;code&gt;/dev/sdb1&lt;/code&gt; 就是刚才操作的结果。&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;制作文件系统以及挂载硬盘&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@turtle:~# mkfs.ext4 /dev/sdb1
+root@turtle:~# mount /dev/sdb1  /mnt/sdb1/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以上是对硬盘进行分区并挂载的过程，所以输出只是示例。目前服务器端的硬盘挂载在 &lt;code&gt;/mnt/storage0_8&lt;/code&gt; 目录下。还需要注意的是 &lt;code&gt;mount&lt;/code&gt;命令重启后就失效。所以还要将挂载信息写入到 &lt;code&gt;/etc/fstab&lt;/code&gt;中，具体做法是在该文件末尾新加一行: &lt;em&gt;(具体效果有待确认)&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;/dev/sdb1 /mnt/sdb1 ext4 default &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;设置开机自动挂载的第二种 &lt;a href=&#34;https://blog.lpxin.com/2019/05/16/Linux%E4%BD%BF%E7%94%A8parted%E6%8C%82%E8%BD%BD%E5%A4%A7%E4%BA%8E2T%E7%A3%81%E7%9B%98/&#34;&gt;姿势&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;最后总结下常用命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;fdisk       磁盘分区相关操作  |fdisk -l 查看磁盘的挂载信息
+df          系统分区挂载信息  |df -lh 查看当前磁盘的使用信息
+mount       挂载分区         
+umount      卸载分区        
+mkfs.ext4   格式化分区   
+chmod &lt;span style=&#34;color:#ae81ff&#34;&gt;777&lt;/span&gt; /mnt/sdb1 给硬盘添加访问权限
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;固态硬盘&#34;&gt;固态硬盘&lt;/h4&gt;
+&lt;p&gt;目前服务器上配备的是一块 2t 的固态硬盘，每个用户的根目录都在固态硬盘中，正常使用即可。这里主要是记录一个以后使用可能会遇到的坑 &amp;ndash; 储存空间被全部占满。我遇到情况是磁盘被体积巨大的 log 文件占满。解决方案：（&lt;a href=&#34;https://itlearner.me/p/58700/&#34;&gt;参考&lt;/a&gt;）&lt;/p&gt;
+&lt;p&gt;查找 大于800M 的文件，手动删除&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ cd /
+$ find . -type f -size +800M  -print0 | xargs -0 du -h
+5.6G ./var/log/syslog.1
+6.7G ./var/log/syslog
+...
+$ rm ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;主要删除各类 log 文件即可。如果删除文件后，磁盘空间没有释放，则需要手动 kill 掉 rm 命令相关的进程&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ sudo lsof -n |grep deleted
+java      &lt;span style=&#34;color:#ae81ff&#34;&gt;17866&lt;/span&gt;                  root  237r      REG              253,1    &lt;span style=&#34;color:#ae81ff&#34;&gt;163541&lt;/span&gt;    &lt;span style=&#34;color:#ae81ff&#34;&gt;1709285&lt;/span&gt; /tmp/tomcat.8250394289784312179.8080/work/Tomcat/localhost/ROOT/upload_c6db0c17_6e6a_4141_bfb6_ac1b2d8a3b0b_00000000.tmp &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;deleted&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+...
+$ sudo kill -9 &lt;span style=&#34;color:#ae81ff&#34;&gt;17866&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;conda&#34;&gt;conda&lt;/h2&gt;
+&lt;h2 id=&#34;开机自启动-待填&#34;&gt;&lt;del&gt;&lt;em&gt;开机自启动&lt;/em&gt;&lt;/del&gt; &amp;lt;待填&amp;gt;&lt;/h2&gt;
+&lt;h2 id=&#34;配置清单&#34;&gt;配置清单&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Ubit AX WiFi 6 Dual Band 2974 Mbps AX200 PCIE Wireless WiFi Card with Bluetooth 5.0 | MU-MIMO| OFDMA| Ultra-Low Latency&lt;/li&gt;
+&lt;li&gt;Corsair CW-9060033-WW H100i Hydro PRO RGB Liquid CPU Cooler - Black&lt;/li&gt;
+&lt;li&gt;ASUS WS X299 SAGE LGA2066 DDR4 M.2 U.2 X299 CEB Motherboard for Intel Core X-Series Processors with Quad-GPU Support, DDR4 4200MHz, Dual M.2 &amp;amp; U.2 Support&lt;/li&gt;
+&lt;li&gt;Intel BX80673I99820X Processor i9-9820X LGA2066 3.3 GHz/16.5 M.  Ebuyer UK Limited&lt;/li&gt;
+&lt;li&gt;Corsair CC-9011030-WW Carbide Series Air 540 ATX High Airflow Cube Performance Windowed Computer Case - Black&lt;/li&gt;
+&lt;li&gt;Corsair CMK128GX4M8A2666C16 Vengeance LPX 128 GB (8 x 16 GB) DDR4 2666 MHz C16 XMP 2.0 High Performance Desktop Memory Kit with Airflow Fan, Black&lt;/li&gt;
+&lt;li&gt;Corsair AX1600i Digital 80 PLUS TITANIUM Full Modular ATX Power Supply Unit - Black&lt;/li&gt;
+&lt;li&gt;Samsung 970 EVO Plus 2 TB PCIe NVMe M.2 (2280) Internal Solid State Drive (SSD) (MZ-V7S2T0)&lt;/li&gt;
+&lt;li&gt;Seagate 8 TB BarraCuda Pro 3.5 Inch Internal Hard Drive + 2 year Rescue Data Recovery (7200 RPM, 256 MB Cache, SATA 6 Gb/s, Up to 220 MB/s, Model: ST8000DMZ004/DM0004)&lt;/li&gt;
+&lt;li&gt;Gigabyte GeForce RTX 2080 Ti TURBO 11G * 4&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

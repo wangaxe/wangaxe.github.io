@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/</loc>
+    <lastmod>2020-07-03T00:05:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/post/mobilenet/</loc>
+    <lastmod>2020-07-03T00:05:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/post/</loc>
+    <lastmod>2020-07-03T00:05:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/post/how-to-build-a-personal-blog-with-hugo/</loc>
+    <lastmod>2020-07-02T22:51:04+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/post/gpu%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-05-19T12:51:04+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/series/</loc>
+  </url>
+  
+  <url>
+    <loc>https://github.com/wangaxe/wangaxe.github.io/tags/</loc>
+  </url>
+  
+</urlset>
