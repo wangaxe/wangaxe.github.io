@@ -6,7 +6,7 @@
     <description>Recent content in Posts on This is a Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:05:36 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2020 11:02:22 +0100</lastBuildDate>
     
 	<atom:link href="https://wangaxe.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>MobileNet</title>
       <link>https://wangaxe.github.io/post/MobileNet/</link>
-      <pubDate>Fri, 03 Jul 2020 00:05:36 +0100</pubDate>
+      <pubDate>Fri, 03 Jul 2020 11:02:22 +0100</pubDate>
       
       <guid>https://wangaxe.github.io/post/MobileNet/</guid>
       <description></description>
@@ -22,10 +22,10 @@
     
     <item>
       <title>How to Build a Personal Blog With Hugo</title>
-      <link>https://wangaxe.github.io/post/How-to-build-a-personal-blog-with-hugo/</link>
+      <link>https://wangaxe.github.io/post/How-to-Build-a-Personal-Blog-with-Hugo/</link>
       <pubDate>Thu, 02 Jul 2020 22:51:04 +0100</pubDate>
       
-      <guid>https://wangaxe.github.io/post/How-to-build-a-personal-blog-with-hugo/</guid>
+      <guid>https://wangaxe.github.io/post/How-to-Build-a-Personal-Blog-with-Hugo/</guid>
       <description>记录搭博客的全过程 (坑) Install Windows 按照 hugo 官网的指南，使用 Scoop 安装。体验相当不错，几乎和 linux 平台 感觉差不多。 1 2 3 4 # 安装 Scoop Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&amp;#39;https://get.scoop.sh&amp;#39;) # 使用 Scoop 安装 hugo scoop install hugo-extended Init 初始化博客 1 2 3 hugo new site &amp;lt;path&amp;gt; cd &amp;lt;path&amp;gt; ls # 是的，powershell可以用 ls :b 安装主题 在 themes 里选一个喜欢的就好, git submodule add 需要先 git init 1 2 3 4 5 git submodule add https://github.com/heyeshuang/hugo-theme-tokiwa.git themes/hugo-theme-tokiwa themes/&amp;lt;theme-path&amp;gt; vim</description>
     </item>
     
