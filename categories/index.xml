@@ -5,6 +5,34 @@
     <link>https://wangaxe.github.io/categories/</link>
     <description>Recent content in Categories on Fu W.</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://wangaxe.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Wed, 20 Oct 2021 10:31:16 +0800</lastBuildDate><atom:link href="https://wangaxe.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>posts</title>
+      <link>https://wangaxe.github.io/categories/posts/</link>
+      <pubDate>Wed, 20 Oct 2021 10:31:16 +0800</pubDate>
+      
+      <guid>https://wangaxe.github.io/categories/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>notes</title>
+      <link>https://wangaxe.github.io/categories/notes/</link>
+      <pubDate>Sun, 19 Sep 2021 22:24:49 +0800</pubDate>
+      
+      <guid>https://wangaxe.github.io/categories/notes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>intro</title>
+      <link>https://wangaxe.github.io/categories/intro/</link>
+      <pubDate>Thu, 10 Jun 2021 10:30:09 +0800</pubDate>
+      
+      <guid>https://wangaxe.github.io/categories/intro/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>notes on Fu W.</title>
+    <link>https://wangaxe.github.io/categories/notes/</link>
+    <description>Recent content in notes on Fu W.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Sep 2021 22:24:49 +0800</lastBuildDate><atom:link href="https://wangaxe.github.io/categories/notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>力扣 双指针</title>
+      <link>https://wangaxe.github.io/notes/leetcode_double_pointers/</link>
+      <pubDate>Sun, 19 Sep 2021 22:24:49 +0800</pubDate>
+      
+      <guid>https://wangaxe.github.io/notes/leetcode_double_pointers/</guid>
+      <description>167 Two Sum II - Input array is sorted 633 Sum of Square Numbers 345 Reverse Vowels of a String 125 Valid Palindrome 680 [回文字符串]() 344 [反转字符串]() 11 [盛最多水容器]()  167. Two Sum II - Input array is sorted 题目描述
+首先分别定义头尾指针, 因为输入序列已经有序, 若指针对应元素之和大于目标值, 前移尾指针, 反之后移头指针. 相等则返回结果, 因为答案要求位置从 1 开始, 故返回是要 +1. 当然第一题中使用哈希表的思想依然适用.
+class Solution: def twoSum(self, numbers: List[int], target: int) -&amp;gt; List[int]: if not numbers: return [] hp = 0 tp = len(numbers)-1 while hp &amp;lt; tp: tmp_sum = numbers[hp] + numbers[tp] if tmp_sum &amp;gt; target: tp -= 1 elif tmp_sum &amp;lt; target: hp += 1 else: return [hp+1, tp+1] return [] 633.</description>
+    </item>
+    
+  </channel>
+</rss>

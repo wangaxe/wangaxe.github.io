@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.88.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>力扣 双指针 &middot; Fu W.</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://wangaxe.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://wangaxe.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://wangaxe.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://wangaxe.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-0d ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://wangaxe.github.io/"><h1>Fu W.</h1></a>
+      <p class="lead">
+       How is going! 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://wangaxe.github.io/">Home</a> </li>
+        <li><a href="/blogs/"> Blogs </a></li><li><a href="https://github.com/wangaxe/"> Github </a></li><li><a href="/notes/"> Notes </a></li>
+      </ul>
+    </nav>
+    <p>Email: fw377 at exeter.ac.uk</p>
+    <p>&copy; 2021. All rights reserved. </p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>力扣 双指针</h1>
+  <time datetime=2021-09-19T22:24:49&#43;0800 class="post-date">Sun, Sep 19, 2021</time>
+  <ul>
+<li>167 <a href="#leetcode_167">Two Sum II - Input array is sorted</a></li>
+<li>633 <a href="#leetcode_633">Sum of Square Numbers</a></li>
+<li>345 <a href="#leetcode_345">Reverse Vowels of a String</a></li>
+<li>125 <a href="#leetcode_125">Valid Palindrome</a></li>
+<li>680 [回文字符串]()</li>
+<li>344 [反转字符串]()</li>
+<li>11 [盛最多水容器]()</li>
+</ul>
+
+<h3 id="font-colorgreen167-two-sum-ii--input-array-is-sortedfontleetcode167"><a href="#leetcode_167"><font color=Green>167. Two Sum II - Input array is sorted</font></a></h3>
+
+<p><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/">题目描述</a></p>
+
+<p>首先分别定义头尾指针, 因为输入序列已经有序, 若指针对应元素之和大于目标值, 前移尾指针, 反之后移头指针.
+相等则返回结果, 因为答案要求位置从 1 开始, 故返回是要 +1.
+当然<a href="#leetcode_1">第一题</a>中使用哈希表的思想依然适用.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">twoSum</span>(self, numbers: List[int], target: int) <span style="color:#f92672">-&gt;</span> List[int]:
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> numbers: <span style="color:#66d9ef">return</span> []
+        hp <span style="color:#f92672">=</span>  <span style="color:#ae81ff">0</span>
+        tp <span style="color:#f92672">=</span> len(numbers)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">while</span> hp <span style="color:#f92672">&lt;</span> tp:
+            tmp_sum <span style="color:#f92672">=</span> numbers[hp] <span style="color:#f92672">+</span> numbers[tp]
+            <span style="color:#66d9ef">if</span> tmp_sum <span style="color:#f92672">&gt;</span> target:
+                tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">elif</span> tmp_sum <span style="color:#f92672">&lt;</span> target:
+                hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+                <span style="color:#66d9ef">return</span> [hp<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, tp<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]
+
+        <span style="color:#66d9ef">return</span> []</code></pre></div>
+<h3 id="font-colororange633-sum-of-square-numbersfontleetcode633"><a href="#leetcode_633"><font color=Orange>633. Sum of Square Numbers</font></a></h3>
+
+<p><a href="https://leetcode.com/problems/sum-of-square-numbers/">题目描述</a></p>
+
+<p>和上一题思路相同, 比较有趣的是 <code>a*a</code> 的效率比 <code>a**2</code> 高很多.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">judgeSquareSum</span>(self, c: int) <span style="color:#f92672">-&gt;</span> bool:
+        <span style="color:#66d9ef">assert</span> c <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>
+        a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        b <span style="color:#f92672">=</span> int(sqrt(c))
+        <span style="color:#66d9ef">while</span> a <span style="color:#f92672">&lt;=</span> b:
+            tmp_sum <span style="color:#f92672">=</span> a<span style="color:#f92672">*</span>a <span style="color:#f92672">+</span> b<span style="color:#f92672">*</span>b
+            <span style="color:#66d9ef">if</span> tmp_sum <span style="color:#f92672">&lt;</span> c:
+                a <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">elif</span> tmp_sum <span style="color:#f92672">&gt;</span> c:
+                b <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span></code></pre></div>
+<h3 id="font-colororange345-reverse-vowels-of-a-stringfontleetcode345"><a href="#leetcode_345"><font color=Orange>345. Reverse Vowels of a String</font></a></h3>
+
+<p><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/">题目描述</a></p>
+
+<p>同样是头尾指针的思路, 只是多了一些要处理的细节.
+使用 set() 来生成元音集可以提高检索效率, 返回结果时要变回字符串.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">reverseVowels</span>(self, s: str) <span style="color:#f92672">-&gt;</span> str:
+        <span style="color:#66d9ef">if</span> len(s) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> s
+        vowels <span style="color:#f92672">=</span> set(<span style="color:#e6db74">&#39;aeiouAEIOU&#39;</span>)
+        hp, tp <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, len(s)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+        s <span style="color:#f92672">=</span> list(s)
+        <span style="color:#66d9ef">while</span> hp <span style="color:#f92672">&lt;</span> tp:
+            <span style="color:#66d9ef">if</span> s[hp] <span style="color:#f92672">in</span> vowels <span style="color:#f92672">and</span> s[tp] <span style="color:#f92672">in</span> vowels:
+                s[hp],  s[tp] <span style="color:#f92672">=</span> s[tp],  s[hp]
+                hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+                tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">elif</span> s[hp] <span style="color:#f92672">in</span> vowels:
+                tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">elif</span> s[tp] <span style="color:#f92672">in</span> vowels:
+                hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+                hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+                tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(s)</code></pre></div>
+<h3 id="font-colorgreen125-valid-palindromefontleetcode125"><a href="#leetcode_125"><font color=Green>125. Valid Palindrome</font></a></h3>
+
+<p><a href="https://leetcode.com/problems/valid-palindrome/">题目描述</a>
+使用 <code>isalnum()</code> 方法来判断元素是否为数字或字母, 然后统一使用小写来比对即可.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">isPalindrome</span>(self, s: str) <span style="color:#f92672">-&gt;</span> bool:
+        <span style="color:#66d9ef">if</span> len(s) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+        hp, tp <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, len(s) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">while</span> hp <span style="color:#f92672">&lt;</span> tp:
+            <span style="color:#66d9ef">if</span> s[hp]<span style="color:#f92672">.</span>isalnum() <span style="color:#f92672">and</span> s[tp]<span style="color:#f92672">.</span>isalnum():
+                <span style="color:#66d9ef">if</span> s[hp]<span style="color:#f92672">.</span>lower() <span style="color:#f92672">==</span> s[tp]<span style="color:#f92672">.</span>lower():
+                    hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+                    tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+                    <span style="color:#66d9ef">continue</span>
+                <span style="color:#66d9ef">else</span>: 
+                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+            <span style="color:#66d9ef">elif</span> s[hp]<span style="color:#f92672">.</span>isalnum():
+                tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">elif</span> s[tp]<span style="color:#f92672">.</span>isalnum():
+                hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#66d9ef">else</span>:
+                hp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+                tp <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span></code></pre></div>
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
